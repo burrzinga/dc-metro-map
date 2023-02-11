@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var rest = require('restler');
+const os = require('os');
+let cnt = 0;
 
 //-----------------------------------------------------------------------------
 // CONSTANTS AND HELPERS
@@ -63,6 +65,15 @@ function wmataJsonToGeoJson(jsonData) {
 router.get('/', function(req, res, next) {
   res.render('dcmetro', { title: 'D.C. Metro Stations', BEERME: BEERME });
 });
+
+
+router.get("/hello", async(req, res) => {
+	try {
+		res.end(`main Node Hello on ${os.hostname()} - ${cnt++} \n`);
+	} catch (err) {
+		console.error(err.message);
+	}  
+})
 
 //-----------------------------------------------------------------------------
 /* GET busses - this is called by our dcmetro map index periodically */
