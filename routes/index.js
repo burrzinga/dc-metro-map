@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var rest = require('restler');
+const os = require('os');
 
 //-----------------------------------------------------------------------------
 // CONSTANTS AND HELPERS
@@ -8,6 +9,9 @@ var rest = require('restler');
 var API_KEY_PLACEHOLDER = process.env.WMATA_API_KEY || '2cc419c974f94b5486dd79d698f7d3f6';
 var BEERME = process.env.BEERME || false;
 var RAINBOW = process.env.RAINBOW || false;
+
+let cnt = 0;
+
 console.log("using WMATA API Key - " + API_KEY_PLACEHOLDER);
 if (BEERME == 'true') { console.log("Beer Me! "); }
 if (RAINBOW == 'true') { console.log("Rainbows! "); }
@@ -63,6 +67,14 @@ function wmataJsonToGeoJson(jsonData) {
 router.get('/', function(req, res, next) {
   res.render('dcmetro', { title: 'D.C. Metro Stations', BEERME: BEERME });
 });
+
+router.get("/hello", async(req, res) => {
+	try {
+		res.end(`Node Hello on ${os.hostname()} - ${cnt++} \n`);
+	} catch (err) {
+		console.error(err.message);
+	}  
+})
 
 //-----------------------------------------------------------------------------
 /* GET busses - this is called by our dcmetro map index periodically */
