@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
 
 router.get("/hello", async(req, res) => {
 	try {
-		res.end(`Node Hello on ${os.hostname()} - ${cnt++} \n`);
+		res.end(`newbranch Hello on ${os.hostname()} - ${cnt++} \n`);
 	} catch (err) {
 		console.error(err.message);
 	}  
